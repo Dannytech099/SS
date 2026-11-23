@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InteriorStudio — Luxury Furniture &amp; Home Decor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=Playfair+Display:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#F8F5F0',
+            cream: '#EFEAE2',
+            charcoal: '#292724',
+            beige: '#D9C8B5',
+            brown: '#806B58',
+            terracotta: '#D98B52',
+            softgrey: '#E7E4E0',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      background-color: #F8F5F0;
+      color: #292724;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Seamless Infinite Marquee */
+    @keyframes interiorMarquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: interiorMarquee 38s linear infinite;
+      will-change: transform;
+    }
+    .marquee-container:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    /* Hero slow zoom */
+    @keyframes heroZoom {
+      0% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    .hero-zoom {
+      animation: heroZoom 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Fade up reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Dark wood editorial grain background */
+    .dark-wood-bg {
+      background-color: #292724;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(217, 139, 82, 0.08), transparent 45%),
+        repeating-linear-gradient(
+          92deg,
+          rgba(128, 107, 88, 0.06) 0px,
+          rgba(128, 107, 88, 0.06) 2px,
+          rgba(25, 23, 21, 0.14) 2px,
+          rgba(25, 23, 21, 0.14) 9px
+        );
+    }
+
+    /* Hide scrollbars on snap tracks */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track, .hero-zoom { animation: none !important; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-terracotta/20 selection:text-charcoal">
+
+  <!-- ==================== A. ANNOUNCEMENT BAR ==================== -->
+  <div id="announcement-bar" class="relative z-50 bg-charcoal text-ivory text-xs tracking-wide">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-8">
+      <span class="hidden sm:inline text-beige">Atelier Dispatch</span>
+      <p id="announcement-text" class="mx-auto text-center font-medium transition-opacity duration-300">
+        Complimentary white-glove shipping on orders over $1,000 · Use code <span class="text-terracotta font-semibold">STUDIO10</span> for 10% off
+      </p>
+      <button onclick="document.getElementById('announcement-bar').remove()" aria-label="Dismiss announcement" class="ml-4 text-beige hover:text-white transition">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== B. STICKY NAVIGATION HEADER ==================== -->
+  <header id="main-header" class="sticky top-0 z-40 transition-all duration-300 bg-ivory/85 backdrop-blur-md border-b border-beige/40">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-8">
+      <!-- Left: Logo -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-charcoal text-ivory font-serif text-lg font-semibold transition group-hover:bg-terracotta">
+          I
+        </span>
+        <span class="font-serif text-xl font-semibold tracking-tight text-charcoal">
+          Interior<span class="text-terracotta">Studio</span>
+        </span>
+      </a>
+
+      <!-- Center: Links + Mega Menu trigger -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-charcoal/85">
+        <a href="#" class="hover:text-terracotta transition">Home</a>
+        <a href="#collections" class="hover:text-terracotta transition">Collections</a>
+        <div class="relative group">
+          <button type="button" class="flex items-center gap-1 hover:text-terracotta transition py-1">
+            Furniture
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <!-- Mega Menu -->
+          <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[640px]">
+            <div class="grid grid-cols-3 gap-6 rounded-2xl border border-beige/60 bg-white p-6 shadow-xl">
+              <div>
+                <p class="text-[11px] uppercase tracking-widest text-brown font-semibold mb-3">Seating &amp; Living</p>
+                <ul class="space-y-2 text-sm text-charcoal/80">
+                  <li><a href="#bestsellers" onclick="filterProducts('Sofas')" class="hover:text-terracotta">Sofas &amp; Couches</a></li>
+                  <li><a href="#bestsellers" onclick="filterProducts('Armchairs')" class="hover:text-terracotta">Armchairs</a></li>
+                  <li><a href="#bestsellers" onclick="filterProducts('Tables')" class="hover:text-terracotta">Coffee Tables</a></li>
+                  <li><a href="#bestsellers" onclick="filterProducts('All')" class="hover:text-terracotta">Storage Furniture</a></li>
+                </ul>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-widest text-brown font-semibold mb-3">Dining &amp; Bedroom</p>
+                <ul class="space-y-2 text-sm text-charcoal/80">
+                  <li><a href="#bestsellers" onclick="filterProducts('Dining')" class="hover:text-terracotta">Dining Furniture</a></li>
+                  <li><a href="#collections" class="hover:text-terracotta">Beds &amp; Mattresses</a></li>
+                  <li><a href="#collections" class="hover:text-terracotta">Wardrobes</a></li>
+                  <li><a href="#collections" class="hover:text-terracotta">Office Furniture</a></li>
+                </ul>
+              </div>
+              <div class="rounded-xl bg-cream p-4 flex flex-col justify-between">
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-terracotta font-semibold">Bespoke Service</span>
+                  <p class="mt-1 font-serif text-base text-charcoal">Book a Design Consultation</p>
+                </div>
+                <a href="#brand-story" class="mt-4 inline-flex items-center text-xs font-semibold text-charcoal hover:text-terracotta">Schedule Session →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="#latest-arrivals" class="hover:text-terracotta transition">Home Decor</a>
+        <a href="#brand-story" class="hover:text-terracotta transition">About</a>
+        <a href="#journal" class="hover:text-terracotta transition">Journal</a>
+        <a href="#footer" class="hover:text-terracotta transition">Contact</a>
+      </nav>
+
+      <!-- Right: Icons & CTA -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button onclick="openSearch()" aria-label="Search" class="p-2 rounded-full hover:bg-cream transition text-charcoal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button onclick="showToast('Customer Portal: Sign in to manage saved addresses & track orders.')" aria-label="Account" class="hidden sm:inline-flex p-2 rounded-full hover:bg-cream transition text-charcoal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button onclick="showToast('Wishlist updated — items saved to your browser.')" aria-label="Wishlist" class="relative p-2 rounded-full hover:bg-cream transition text-charcoal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span id="wishlist-count" class="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-charcoal text-[10px] font-semibold text-white">2</span>
+        </button>
+        <button onclick="toggleCart(true)" aria-label="Shopping Bag" class="relative p-2 rounded-full hover:bg-cream transition text-charcoal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span id="cart-count" class="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-terracotta text-[10px] font-semibold text-white">0</span>
+        </button>
+        <a href="#journal" class="hidden md:inline-flex items-center rounded-full bg-charcoal px-5 py-2 text-xs font-medium text-ivory transition hover:bg-terracotta">
+          Get Inspired
+        </a>
+        <button onclick="toggleMobileMenu()" aria-label="Menu" class="lg:hidden p-2 rounded-full hover:bg-cream">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-beige/50 bg-ivory px-6 py-5 space-y-3 text-sm font-medium">
+      <a href="#" onclick="toggleMobileMenu()" class="block py-1.5">Home</a>
+      <a href="#collections" onclick="toggleMobileMenu()" class="block py-1.5">Collections</a>
+      <a href="#bestsellers" onclick="toggleMobileMenu()" class="block py-1.5">Furniture Catalogue</a>
+      <a href="#latest-arrivals" onclick="toggleMobileMenu()" class="block py-1.5">Home Decor</a>
+      <a href="#brand-story" onclick="toggleMobileMenu()" class="block py-1.5">About</a>
+      <a href="#journal" onclick="toggleMobileMenu()" class="block py-1.5">Journal</a>
+    </div>
+  </header>
+
+  <!-- ==================== C. HERO SECTION ==================== -->
+  <section class="relative min-h-[84vh] overflow-hidden bg-charcoal text-white flex items-center">
+    <img
+      src="https://images.unsplash.com/photo-1791869595612-5eb8ca1f263d?fm=jpg&q=80&w=2000&auto=format&fit=crop"
+      alt="Modern warm neutral living room curated by InteriorStudio"
+      class="hero-zoom absolute inset-0 h-full w-full object-cover object-center"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/50 to-charcoal/15"></div>
+
+    <div class="relative z-10 mx-auto w-full max-w-7xl px-6 pt-20 pb-40 sm:px-10">
+      <span class="inline-flex items-center rounded-full border border-beige/40 bg-charcoal/40 px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-cream backdrop-blur-md">
+        Curated European &amp; Artisanal Craft
+      </span>
+      <h1 class="mt-5 max-w-2xl font-serif text-4xl leading-[1.08] font-medium sm:text-5xl lg:text-6xl">
+        Design Your Dream Living Space
+      </h1>
+      <p class="mt-5 max-w-lg text-base leading-relaxed text-cream/90 sm:text-lg">
+        Stylish furniture and thoughtfully curated decor to elevate your home.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a href="#collections" class="inline-flex items-center gap-2 rounded-full bg-terracotta px-7 py-3.5 text-sm font-medium text-white shadow-lg transition hover:bg-[#c37842]">
+          Explore Collections
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </a>
+        <a href="#brand-story" class="inline-flex items-center rounded-full border border-cream/50 bg-white/10 px-7 py-3.5 text-sm font-medium text-white backdrop-blur-md transition hover:bg-white/20">
+          Discover Our Story
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== D. 3 FLOATING CATEGORY CARDS ==================== -->
+  <section class="relative z-20 mx-auto -mt-24 max-w-7xl px-6 sm:px-10">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <!-- Card 1 -->
+      <article class="reveal group overflow-hidden rounded-[16px] bg-white shadow-[0_14px_35px_-12px_rgba(41,39,36,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+        <div class="relative h-56 overflow-hidden bg-cream">
+          <img src="https://images.unsplash.com/photo-1786462543687-26614deb2d6f?fm=jpg&q=80&w=1000&auto=format&fit=crop" alt="Modern Furniture" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <h2 class="font-serif text-xl font-medium text-charcoal">Modern Furniture</h2>
+          <p class="mt-2 text-sm text-brown leading-relaxed">Sculptural sofas, solid oak frames, and heirloom-grade upholstery.</p>
+          <a href="#bestsellers" onclick="filterProducts('Sofas')" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta hover:text-charcoal transition">
+            Shop Now <span>→</span>
+          </a>
+        </div>
+      </article>
+      <!-- Card 2 -->
+      <article class="reveal group overflow-hidden rounded-[16px] bg-white shadow-[0_14px_35px_-12px_rgba(41,39,36,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+        <div class="relative h-56 overflow-hidden bg-cream">
+          <img src="https://images.unsplash.com/photo-1792541844474-e49059c13a25?fm=jpg&q=80&w=1000&auto=format&fit=crop" alt="Decor Accents" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <h2 class="font-serif text-xl font-medium text-charcoal">Decor Accents</h2>
+          <p class="mt-2 text-sm text-brown leading-relaxed">Hand-thrown stoneware vessels, travertine objects, and warm lighting.</p>
+          <a href="#bestsellers" onclick="filterProducts('Decor')" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta hover:text-charcoal transition">
+            Shop Now <span>→</span>
+          </a>
+        </div>
+      </article>
+      <!-- Card 3 -->
+      <article class="reveal group overflow-hidden rounded-[16px] bg-white shadow-[0_14px_35px_-12px_rgba(41,39,36,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+        <div class="relative h-56 overflow-hidden bg-cream">
+          <img src="https://images.unsplash.com/photo-1790774883889-0557797edc31?fm=jpg&q=80&w=1000&auto=format&fit=crop" alt="Inspired Living" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <h2 class="font-serif text-xl font-medium text-charcoal">Inspired Living</h2>
+          <p class="mt-2 text-sm text-brown leading-relaxed">Complete room compositions styled for calm, effortless daily rituals.</p>
+          <a href="#collections" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta hover:text-charcoal transition">
+            Shop Now <span>→</span>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ==================== E. FEATURED COLLECTIONS ==================== -->
+  <section id="collections" class="mx-auto max-w-7xl px-6 py-24 sm:px-10">
+    <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Spaces By Room</span>
+        <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-medium">Featured Collections</h2>
+      </div>
+      <p class="max-w-md text-sm text-brown">Swipe or explore curated architectural collections tailored for every room in your residence.</p>
+    </div>
+
+    <div class="mt-10 flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 md:grid md:grid-cols-4 md:overflow-visible no-scrollbar">
+      <!-- Living Room -->
+      <div class="reveal min-w-[78%] sm:min-w-[46%] md:min-w-0 snap-start group relative h-[400px] overflow-hidden rounded-[16px] bg-cream">
+        <img src="https://images.unsplash.com/photo-1787390629829-abb32b3025c5?fm=jpg&q=80&w=900&auto=format&fit=crop" alt="Living Room" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent"></div>
+        <div class="absolute inset-x-6 bottom-6 text-white">
+          <h3 class="font-serif text-2xl">Living Room</h3>
+          <p class="mt-1 text-xs text-cream/85">Modular linen sofas &amp; sculptural coffee tables.</p>
+          <a href="#bestsellers" onclick="filterProducts('Sofas')" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-terracotta group-hover:text-white transition">Explore Collection →</a>
+        </div>
+      </div>
+      <!-- Home Office -->
+      <div class="reveal min-w-[78%] sm:min-w-[46%] md:min-w-0 snap-start group relative h-[400px] overflow-hidden rounded-[16px] bg-cream">
+        <img src="https://images.unsplash.com/photo-1772475385509-93fd87a2d4ba?fm=jpg&q=80&w=900&auto=format&fit=crop" alt="Home Office" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent"></div>
+        <div class="absolute inset-x-6 bottom-6 text-white">
+          <h3 class="font-serif text-2xl">Home Office</h3>
+          <p class="mt-1 text-xs text-cream/85">Walnut desks &amp; ergonomic studio seating.</p>
+          <a href="#bestsellers" onclick="filterProducts('Office')" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-terracotta group-hover:text-white transition">Explore Collection →</a>
+        </div>
+      </div>
+      <!-- Bedroom -->
+      <div class="reveal min-w-[78%] sm:min-w-[46%] md:min-w-0 snap-start group relative h-[400px] overflow-hidden rounded-[16px] bg-cream">
+        <img src="https://images.unsplash.com/photo-1750268746235-1657249daa37?fm=jpg&q=80&w=900&auto=format&fit=crop" alt="Bedroom" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent"></div>
+        <div class="absolute inset-x-6 bottom-6 text-white">
+          <h3 class="font-serif text-2xl">Bedroom</h3>
+          <p class="mt-1 text-xs text-cream/85">Upholstered beds, oak nightstands &amp; soft linens.</p>
+          <a href="#bestsellers" onclick="filterProducts('All')" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-terracotta group-hover:text-white transition">Explore Collection →</a>
+        </div>
+      </div>
+      <!-- Decor Accessories -->
+      <div class="reveal min-w-[78%] sm:min-w-[46%] md:min-w-0 snap-start group relative h-[400px] overflow-hidden rounded-[16px] bg-cream">
+        <img src="https://images.unsplash.com/photo-1584515453937-c00929e621d1?fm=jpg&q=80&w=900&auto=format&fit=crop" alt="Decor Accessories" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent"></div>
+        <div class="absolute inset-x-6 bottom-6 text-white">
+          <h3 class="font-serif text-2xl">Decor Accessories</h3>
+          <p class="mt-1 text-xs text-cream/85">Artisanal ceramics, mirrors &amp; ambient lamps.</p>
+          <a href="#bestsellers" onclick="filterProducts('Decor')" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-terracotta group-hover:text-white transition">Explore Collection →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== F. LATEST ARRIVALS (DARK WOOD TEXTURED) ==================== -->
+  <section id="latest-arrivals" class="dark-wood-bg py-24 text-ivory">
+    <div class="mx-auto max-w-7xl px-6 sm:px-10">
+      <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">New Atelier Pieces</span>
+          <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-medium">Latest Arrivals</h2>
+          <p class="mt-3 max-w-xl text-sm sm:text-base text-beige leading-relaxed">
+            Discover beautifully crafted pieces designed to bring character and elegance into your home.
+          </p>
+        </div>
+        <a href="#bestsellers" class="inline-flex w-fit items-center gap-2 rounded-full border border-brown px-6 py-2.5 text-xs font-medium text-cream transition hover:border-terracotta hover:text-terracotta">
+          Explore Full Catalogue →
+        </a>
+      </div>
+
+      <div id="arrivals-grid" class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3"></div>
+    </div>
+  </section>
+
+  <!-- ==================== G. BEST SELLERS + CATALOGUE FILTERS ==================== -->
+  <section id="bestsellers" class="mx-auto max-w-7xl px-6 py-24 sm:px-10">
+    <div class="reveal flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+      <div>
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Most Coveted</span>
+        <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-medium">Best Sellers</h2>
+      </div>
+      <!-- Filter Pills & Sort -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div id="filter-pills" class="flex flex-wrap gap-2">
+          <button onclick="filterProducts('All')" class="filter-btn active-filter rounded-full px-4 py-2 text-xs font-medium bg-charcoal text-ivory">All</button>
+          <button onclick="filterProducts('Sofas')" class="filter-btn rounded-full px-4 py-2 text-xs font-medium bg-cream text-charcoal hover:bg-beige">Sofas</button>
+          <button onclick="filterProducts('Armchairs')" class="filter-btn rounded-full px-4 py-2 text-xs font-medium bg-cream text-charcoal hover:bg-beige">Armchairs</button>
+          <button onclick="filterProducts('Dining')" class="filter-btn rounded-full px-4 py-2 text-xs font-medium bg-cream text-charcoal hover:bg-beige">Dining</button>
+          <button onclick="filterProducts('Decor')" class="filter-btn rounded-full px-4 py-2 text-xs font-medium bg-cream text-charcoal hover:bg-beige">Lighting &amp; Decor</button>
+          <button onclick="filterProducts('Office')" class="filter-btn rounded-full px-4 py-2 text-xs font-medium bg-cream text-charcoal hover:bg-beige">Office</button>
+        </div>
+        <select id="sort-select" onchange="renderBestSellers()" class="rounded-full border border-beige bg-white px-4 py-2 text-xs font-medium text-charcoal focus:outline-none">
+          <option value="popular">Sort: Popularity</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Highest Rated</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="bestsellers-grid" class="mt-10 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"></div>
+  </section>
+
+  <!-- ==================== H. PROMOTIONAL EDITORIAL BANNER ==================== -->
+  <section class="mx-auto max-w-7xl px-6 sm:px-10">
+    <div class="reveal relative overflow-hidden rounded-[20px] bg-charcoal text-white">
+      <img src="https://images.unsplash.com/photo-1774578342040-e43e8016428c?fm=jpg&q=80&w=1800&auto=format&fit=crop" alt="Make Room for Better Living" class="h-[440px] w-full object-cover opacity-65" />
+      <div class="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/55 to-transparent"></div>
+      <div class="absolute inset-0 flex flex-col justify-center px-8 sm:px-16 max-w-2xl">
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Seasonal Curation</span>
+        <h2 class="mt-3 font-serif text-3xl sm:text-5xl leading-tight font-medium">Make Room for Better Living.</h2>
+        <p class="mt-4 text-sm sm:text-base text-cream/90 leading-relaxed">
+          Explore our carefully selected furniture collection and transform your home with timeless organic silhouettes.
+        </p>
+        <div class="mt-7">
+          <a href="#collections" class="inline-flex items-center gap-2 rounded-full bg-terracotta px-7 py-3.5 text-sm font-medium text-white transition hover:bg-[#c37842]">
+            Explore the Collection →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== I. SEAMLESS ENDLESS CAROUSEL ==================== -->
+  <section class="py-24 overflow-hidden">
+    <div class="mx-auto max-w-7xl px-6 sm:px-10 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Continuous Showcase</span>
+        <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-medium">Curated Favorites in Motion</h2>
+      </div>
+      <p class="text-xs text-brown">Hover any piece to pause · Click to quick-view or add to bag</p>
+    </div>
+
+    <div class="marquee-container w-full overflow-hidden">
+      <div id="marquee-track" class="marquee-track gap-6 px-3"></div>
+    </div>
+  </section>
+
+  <!-- ==================== J. BRAND STORY SECTION ==================== -->
+  <section id="brand-story" class="bg-cream py-24">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 sm:px-10 lg:grid-cols-2">
+      <div class="reveal relative overflow-hidden rounded-[18px] shadow-lg">
+        <img src="https://images.unsplash.com/photo-1617228154841-0b8a2eb64c03?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Craftsmanship at InteriorStudio" class="h-[480px] w-full object-cover" />
+      </div>
+      <div class="reveal">
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Our Philosophy</span>
+        <h2 class="mt-3 font-serif text-3xl sm:text-4xl font-medium leading-tight">Spaces That Tell Your Story.</h2>
+        <p class="mt-5 text-sm sm:text-base text-brown leading-relaxed">
+          At InteriorStudio, every piece begins with architectural restraint and tactile warmth. We partner with master woodworkers and family-owned textile mills to create furniture meant to age gracefully across decades.
+        </p>
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3 border-t border-beige pt-7">
+          <div>
+            <h3 class="font-serif text-lg font-medium">Craftsmanship</h3>
+            <p class="mt-1 text-xs text-brown">Mortise-and-tenon joinery finished by hand.</p>
+          </div>
+          <div>
+            <h3 class="font-serif text-lg font-medium">Pure Materials</h3>
+            <p class="mt-1 text-xs text-brown">Kiln-dried oak, travertine, and Belgian linen.</p>
+          </div>
+          <div>
+            <h3 class="font-serif text-lg font-medium">Sustainable</h3>
+            <p class="mt-1 text-xs text-brown">FSC-certified timber &amp; water-based finishes.</p>
+          </div>
+        </div>
+        <button onclick="showToast('Design Consultation: Our studio advisors are ready to assist you.')" class="mt-8 inline-flex items-center gap-2 rounded-full bg-charcoal px-7 py-3.5 text-sm font-medium text-ivory transition hover:bg-terracotta">
+          Explore Our Story →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== K. CUSTOMER TESTIMONIALS ==================== -->
+  <section class="mx-auto max-w-7xl px-6 py-24 sm:px-10">
+    <div class="reveal flex items-end justify-between gap-4">
+      <div>
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Client Reflections</span>
+        <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-medium">Loved by Discerning Homes</h2>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="scrollTestimonials(-1)" aria-label="Previous testimonial" class="flex h-10 w-10 items-center justify-center rounded-full border border-beige bg-white hover:border-terracotta hover:text-terracotta transition">←</button>
+        <button onclick="scrollTestimonials(1)" aria-label="Next testimonial" class="flex h-10 w-10 items-center justify-center rounded-full border border-beige bg-white hover:border-terracotta hover:text-terracotta transition">→</button>
+      </div>
+    </div>
+
+    <div id="testimonials-track" class="mt-10 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar">
+      <article class="min-w-[85%] md:min-w-[32%] snap-start rounded-[16px] border border-softgrey bg-white p-7 shadow-sm">
+        <div class="text-terracotta text-sm">★★★★★</div>
+        <p class="mt-4 text-sm leading-relaxed text-charcoal/90">“The Oslo Bouclé Armchair transformed our reading corner. The kiln-dried oak frame feels extraordinarily solid and refined.”</p>
+        <div class="mt-6 flex items-center gap-3 border-t border-softgrey pt-4">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-cream font-serif font-semibold text-charcoal">AO</div>
+          <div>
+            <p class="text-sm font-semibold">Amara Okafor <span class="ml-1 rounded-full bg-cream px-2 py-0.5 text-[10px] text-brown">Verified</span></p>
+            <p class="text-xs text-brown">Purchased: Oslo Bouclé Armchair</p>
+          </div>
+        </div>
+      </article>
+      <article class="min-w-[85%] md:min-w-[32%] snap-start rounded-[16px] border border-softgrey bg-white p-7 shadow-sm">
+        <div class="text-terracotta text-sm">★★★★★</div>
+        <p class="mt-4 text-sm leading-relaxed text-charcoal/90">“White-glove delivery arrived on schedule and the travertine dining table looks like a gallery sculpture in our space.”</p>
+        <div class="mt-6 flex items-center gap-3 border-t border-softgrey pt-4">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-cream font-serif font-semibold text-charcoal">ML</div>
+          <div>
+            <p class="text-sm font-semibold">Marcus Lindqvist <span class="ml-1 rounded-full bg-cream px-2 py-0.5 text-[10px] text-brown">Verified</span></p>
+            <p class="text-xs text-brown">Purchased: Atelier Dining Table</p>
+          </div>
+        </div>
+      </article>
+      <article class="min-w-[85%] md:min-w-[32%] snap-start rounded-[16px] border border-softgrey bg-white p-7 shadow-sm">
+        <div class="text-terracotta text-sm">★★★★★</div>
+        <p class="mt-4 text-sm leading-relaxed text-charcoal/90">“From the ceramic vases to the ambient desk lamp, every texture complements warm neutral architecture effortlessly.”</p>
+        <div class="mt-6 flex items-center gap-3 border-t border-softgrey pt-4">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-cream font-serif font-semibold text-charcoal">SR</div>
+          <div>
+            <p class="text-sm font-semibold">Sofia Rossi <span class="ml-1 rounded-full bg-cream px-2 py-0.5 text-[10px] text-brown">Verified</span></p>
+            <p class="text-xs text-brown">Purchased: Kyoto Ceramic Set</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ==================== L. INTERIOR INSPIRATION / JOURNAL ==================== -->
+  <section id="journal" class="bg-cream/65 py-24">
+    <div class="mx-auto max-w-7xl px-6 sm:px-10">
+      <div class="reveal flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Editorial Notes</span>
+          <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-medium">Interior Inspiration &amp; Journal</h2>
+        </div>
+        <a href="#journal" class="text-xs font-semibold uppercase tracking-wider text-charcoal hover:text-terracotta">View All Articles →</a>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <article class="reveal group overflow-hidden rounded-[16px] bg-white shadow-sm">
+          <div class="h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1785232244548-5cfe6fb60418?fm=jpg&q=80&w=900&auto=format&fit=crop" alt="Warm Neutral Dining" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between text-[11px] uppercase tracking-wider text-brown">
+              <span class="text-terracotta font-semibold">Living &amp; Dining</span>
+              <span>5 min read</span>
+            </div>
+            <h3 class="mt-3 font-serif text-xl font-medium group-hover:text-terracotta transition">Warm Minimalism: Layering Oak, Linen &amp; Travertine</h3>
+            <p class="mt-2 text-sm text-brown line-clamp-2">How tactile contrast creates depth in monochrome neutral interiors without visual clutter.</p>
+          </div>
+        </article>
+        <article class="reveal group overflow-hidden rounded-[16px] bg-white shadow-sm">
+          <div class="h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1623177623442-979c1e42c255?fm=jpg&q=80&w=900&auto=format&fit=crop" alt="Studio Workspace" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between text-[11px] uppercase tracking-wider text-brown">
+              <span class="text-terracotta font-semibold">Buying Guide</span>
+              <span>4 min read</span>
+            </div>
+            <h3 class="mt-3 font-serif text-xl font-medium group-hover:text-terracotta transition">Designing a Calm, Productive Architectural Home Office</h3>
+            <p class="mt-2 text-sm text-brown line-clamp-2">Selecting desk proportions, task lighting, and acoustic textures for focused creative work.</p>
+          </div>
+        </article>
+        <article class="reveal group overflow-hidden rounded-[16px] bg-white shadow-sm">
+          <div class="h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1602700113559-c7b80feaa9bf?fm=jpg&q=80&w=900&auto=format&fit=crop" alt="Bedroom Sanctuary" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between text-[11px] uppercase tracking-wider text-brown">
+              <span class="text-terracotta font-semibold">Styling Tips</span>
+              <span>6 min read</span>
+            </div>
+            <h3 class="mt-3 font-serif text-xl font-medium group-hover:text-terracotta transition">Proportion &amp; Scale: Choosing the Right Dining Table</h3>
+            <p class="mt-2 text-sm text-brown line-clamp-2">Essential clearance rules and seating ratios for intimate dinners and open-plan hosting.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== M. NEWSLETTER SECTION ==================== -->
+  <section class="mx-auto max-w-4xl px-6 py-24 text-center sm:px-10">
+    <div class="reveal rounded-[20px] border border-beige bg-white px-6 py-14 sm:px-14 shadow-sm">
+      <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Private Invitations</span>
+      <h2 class="mt-3 font-serif text-3xl sm:text-4xl font-medium">A More Beautiful Home Starts Here.</h2>
+      <p class="mx-auto mt-3 max-w-md text-sm text-brown">Receive early access to seasonal releases, interior design essays, and private atelier previews.</p>
+      <form onsubmit="handleNewsletter(event)" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+        <input id="newsletter-email" type="email" required placeholder="Enter your email address" class="flex-1 rounded-full border border-beige bg-ivory px-5 py-3 text-sm text-charcoal focus:border-terracotta focus:outline-none" />
+        <button type="submit" class="rounded-full bg-terracotta px-7 py-3 text-sm font-medium text-white transition hover:bg-[#c37842]">
+          Subscribe
+        </button>
+      </form>
+      <p id="newsletter-feedback" class="mt-3 text-xs text-brown hidden"></p>
+    </div>
+  </section>
+
+  <!-- ==================== N. FOOTER ==================== -->
+  <footer id="footer" class="bg-charcoal text-cream pt-16 pb-10">
+    <div class="mx-auto max-w-7xl px-6 sm:px-10">
+      <div class="grid grid-cols-1 gap-10 md:grid-cols-4 border-b border-white/10 pb-12">
+        <div>
+          <span class="font-serif text-2xl font-semibold text-white">Interior<span class="text-terracotta">Studio</span></span>
+          <p class="mt-4 text-xs leading-relaxed text-beige">
+            Architectural furniture and sculptural home objects crafted in warm natural materials for timeless residential living.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xs uppercase tracking-widest text-white font-semibold">Shop</h3>
+          <ul class="mt-4 space-y-2.5 text-xs text-beige">
+            <li><a href="#collections" class="hover:text-terracotta">Living Room</a></li>
+            <li><a href="#collections" class="hover:text-terracotta">Bedroom</a></li>
+            <li><a href="#collections" class="hover:text-terracotta">Home Office</a></li>
+            <li><a href="#latest-arrivals" class="hover:text-terracotta">Lighting &amp; Decor</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs uppercase tracking-widest text-white font-semibold">Client Care</h3>
+          <ul class="mt-4 space-y-2.5 text-xs text-beige">
+            <li><a href="#brand-story" class="hover:text-terracotta">Design Consultations</a></li>
+            <li><a href="#" onclick="showToast('White-glove & standard delivery across 35+ regions.'); return false;" class="hover:text-terracotta">Shipping &amp; Returns</a></li>
+            <li><a href="#" onclick="showToast('Digital Gift Cards available from $100.'); return false;" class="hover:text-terracotta">Gift Cards</a></li>
+            <li><a href="#" class="hover:text-terracotta">Privacy &amp; Terms</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs uppercase tracking-widest text-white font-semibold">Atelier Contact</h3>
+          <p class="mt-4 text-xs text-beige">concierge@interiorstudio.design</p>
+          <p class="mt-1.5 text-xs text-beige">+234 (0) 800 INTERIOR</p>
+          <div class="mt-5 flex flex-wrap gap-2 text-[10px] text-beige">
+            <span class="rounded border border-white/20 px-2.5 py-1">Stripe</span>
+            <span class="rounded border border-white/20 px-2.5 py-1">Paystack</span>
+            <span class="rounded border border-white/20 px-2.5 py-1">Flutterwave</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 flex flex-col items-center justify-between gap-4 text-xs text-brown sm:flex-row">
+        <p>© 2026 InteriorStudio Atelier. All rights reserved.</p>
+        <p>Crafted for modern residential architecture.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== WHATSAPP SUPPORT FLOATING BUTTON ==================== -->
+  <!-- <a
+    href="https://wa.me/9114969508"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="WhatsApp Customer Support"
+    class="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-charcoal px-4 py-3 text-xs font-medium text-white shadow-xl border border-beige/30 transition hover:bg-terracotta"
+  >
+    <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+    Chat on Whatsapp
+  </a> -->
+
+  <!-- ==================== SEARCH OVERLAY ==================== -->
+  <div id="search-modal" class="hidden fixed inset-0 z-50 bg-charcoal/60 backdrop-blur-sm flex items-start justify-center pt-20 px-4">
+    <div class="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-2xl">
+      <div class="flex items-center gap-3 border-b border-softgrey pb-4">
+        <svg class="w-5 h-5 text-brown" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search-input" oninput="handleSearch(this.value)" type="text" placeholder="Search sofas, armchairs, travertine, lamps..." class="w-full text-sm text-charcoal focus:outline-none" />
+        <button onclick="closeSearch()" class="text-xs font-semibold text-brown hover:text-charcoal">ESC</button>
+      </div>
+      <div id="search-results" class="mt-4 max-h-80 overflow-y-auto divide-y divide-softgrey"></div>
+    </div>
+  </div>
+
+  <!-- ==================== QUICK VIEW MODAL ==================== -->
+  <div id="quickview-modal" class="hidden fixed inset-0 z-50 bg-charcoal/65 backdrop-blur-sm flex items-center justify-center p-4">
+    <div id="quickview-content" class="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl grid grid-cols-1 md:grid-cols-2"></div>
+  </div>
+
+  <!-- ==================== SLIDE-OUT CART DRAWER ==================== -->
+  <div id="cart-overlay" onclick="toggleCart(false)" class="hidden fixed inset-0 z-50 bg-charcoal/50 backdrop-blur-xs"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md translate-x-full bg-ivory shadow-2xl transition-transform duration-300 flex flex-col">
+    <div class="flex items-center justify-between border-b border-beige/60 px-6 py-5">
+      <h2 class="font-serif text-xl font-medium">Your Shopping Bag</h2>
+      <button onclick="toggleCart(false)" class="rounded-full p-2 hover:bg-cream">✕</button>
+    </div>
+
+    <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-4 space-y-4"></div>
+
+    <div class="border-t border-beige/60 bg-white px-6 py-5 space-y-4">
+      <form onsubmit="applyPromo(event)" class="flex gap-2">
+        <input id="promo-input" type="text" placeholder="Promo code (try STUDIO10)" class="flex-1 rounded-full border border-beige px-4 py-2 text-xs focus:border-terracotta focus:outline-none" />
+        <button type="submit" class="rounded-full bg-cream px-4 py-2 text-xs font-semibold hover:bg-beige transition">Apply</button>
+      </form>
+      <div class="space-y-1.5 text-xs">
+        <div class="flex justify-between text-brown"><span>Subtotal</span><span id="cart-subtotal">$0</span></div>
+        <div id="discount-row" class="hidden flex justify-between text-terracotta font-medium"><span>Promo Discount (10%)</span><span id="cart-discount">-$0</span></div>
+        <div class="flex justify-between text-brown"><span>Shipping</span><span id="cart-shipping">$45</span></div>
+        <div class="flex justify-between border-t border-softgrey pt-2 text-base font-semibold text-charcoal"><span>Total</span><span id="cart-total">$0</span></div>
+      </div>
+      <button onclick="handleCheckoutPreview()" class="w-full rounded-full bg-terracotta py-3.5 text-sm font-medium text-white transition hover:bg-[#c37842]">
+        Proceed to Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toast" class="pointer-events-none fixed bottom-6 left-6 z-50 translate-y-6 opacity-0 transition-all duration-300 rounded-full bg-charcoal px-5 py-3 text-xs font-medium text-ivory shadow-xl"></div>
+
+  <!-- ==================== INTERACTIVE STOREFRONT SCRIPT ==================== -->
+  <script>
+    const PRODUCTS = [
+      {
+        id: 'p1',
+        name: 'Oslo Bouclé Armchair',
+        category: 'Armchairs',
+        price: 890,
+        compareAt: 1050,
+        rating: 4.9,
+        reviews: 48,
+        arrival: true,
+        image: 'https://images.unsplash.com/photo-1763279934323-edb3735f6a6e?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['Warm Ivory', 'Smoked Oak', 'Terracotta'],
+        dimensions: '82cm W × 86cm D × 76cm H',
+        desc: 'Hand-carved European oak frame upholstered in tactile Belgian wool bouclé.'
+      },
+      {
+        id: 'p2',
+        name: 'Kyoto Ceramic Vases (Set of 2)',
+        category: 'Decor',
+        price: 165,
+        compareAt: 210,
+        rating: 4.8,
+        reviews: 34,
+        arrival: true,
+        image: 'https://images.unsplash.com/photo-1792541844474-e49059c13a25?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['Raw Umber', 'Chalk'],
+        dimensions: '28cm H & 19cm H',
+        desc: 'Wheel-thrown matte stoneware vessels finished with an organic mineral glaze.'
+      },
+      {
+        id: 'p3',
+        name: 'Aurelia Minimalist Table Lamp',
+        category: 'Decor',
+        price: 245,
+        compareAt: null,
+        rating: 4.9,
+        reviews: 61,
+        arrival: true,
+        image: 'https://images.unsplash.com/photo-1786522635382-8a8ad4b8851f?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['Natural Ash', 'Walnut'],
+        dimensions: '34cm H × 22cm Ø',
+        desc: 'Architectural wood grain lamp emitting a warm, dimmable 2700K architectural glow.'
+      },
+      {
+        id: 'p4',
+        name: 'Siena Modular Linen Sofa',
+        category: 'Sofas',
+        price: 2450,
+        compareAt: 2800,
+        rating: 5.0,
+        reviews: 82,
+        arrival: false,
+        image: 'https://images.unsplash.com/photo-1786462543687-26614deb2d6f?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['Oatmeal Linen', 'Sandstone'],
+        dimensions: '240cm W × 98cm D × 74cm H',
+        desc: 'Deep lounge seating with feather-wrapped cushions and removable Belgian flax covers.'
+      },
+      {
+        id: 'p5',
+        name: 'Nordic Sculpted Mirror & Chair Set',
+        category: 'Armchairs',
+        price: 1120,
+        compareAt: null,
+        rating: 4.7,
+        reviews: 27,
+        arrival: false,
+        image: 'https://images.unsplash.com/photo-1617228154841-0b8a2eb64c03?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['Ash & Cream'],
+        dimensions: 'Chair: 74cm W · Mirror: 90cm Ø',
+        desc: 'Curated entryway pairing featuring a solid ash armchair and brass-rimmed mirror.'
+      },
+      {
+        id: 'p6',
+        name: 'Atelier Round Oak Dining Table',
+        category: 'Dining',
+        price: 1680,
+        compareAt: 1920,
+        rating: 4.9,
+        reviews: 41,
+        arrival: false,
+        image: 'https://images.unsplash.com/photo-1785232244548-5cfe6fb60418?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['Oiled Oak', 'Smoked Walnut'],
+        dimensions: '135cm Ø × 75cm H',
+        desc: 'Pedestal-base round table designed for intimate conversation and effortless flow.'
+      },
+      {
+        id: 'p7',
+        name: 'Vespera Walnut Standing Desk',
+        category: 'Office',
+        price: 1390,
+        compareAt: null,
+        rating: 4.8,
+        reviews: 53,
+        arrival: false,
+        image: 'https://images.unsplash.com/photo-1623177623442-979c1e42c255?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['American Walnut', 'White Oak'],
+        dimensions: '160cm W × 75cm D',
+        desc: 'Whisper-quiet dual-motor sit-stand desk topped with solid bevel-edged timber.'
+      },
+      {
+        id: 'p8',
+        name: 'Solstice Ambient Nightstand Lamp',
+        category: 'Decor',
+        price: 195,
+        compareAt: 230,
+        rating: 4.9,
+        reviews: 39,
+        arrival: false,
+        image: 'https://images.unsplash.com/photo-1769255119650-f658d3dbc397?fm=jpg&q=80&w=1000&auto=format&fit=crop',
+        colors: ['Warm Maple'],
+        dimensions: '26cm H × 18cm Ø',
+        desc: 'Diffused frosted glass globe resting on a turned solid wood cylinder.'
+      }
+    ];
+
+    let activeCategory = 'All';
+    let wishlist = new Set(['p1', 'p4']);
+    let cart = JSON.parse(localStorage.getItem('is_preview_cart') || '[]');
+    let promoApplied = false;
+
+    // Rotating announcements
+    const announcements = [
+      'Complimentary white-glove shipping on orders over $1,000 · Use code <span class="text-terracotta font-semibold">STUDIO10</span> for 10% off',
+      'New Autumn / Winter Atelier Collection now open for immediate dispatch',
+      'Complimentary 1-on-1 Virtual Interior Design Consultations available'
+    ];
+    let annIdx = 0;
+    setInterval(() => {
+      const el = document.getElementById('announcement-text');
+      if (!el) return;
+      annIdx = (annIdx + 1) % announcements.length;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.innerHTML = announcements[annIdx];
+        el.style.opacity = '1';
+      }, 250);
+    }, 5000);
+
+    function renderArrivals() {
+      const grid = document.getElementById('arrivals-grid');
+      const items = PRODUCTS.filter(p => p.arrival);
+      grid.innerHTML = items.map(p => `
+        <article class="group overflow-hidden rounded-[16px] border border-white/10 bg-[#33302C]">
+          <div class="relative aspect-[4/3] overflow-hidden bg-cream">
+            <img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div class="absolute inset-x-4 bottom-4 flex gap-2 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              <button onclick="addToCart('${p.id}')" class="flex-1 rounded-full bg-charcoal/90 py-2.5 text-xs font-medium text-white backdrop-blur hover:bg-terracotta transition">Add to Cart</button>
+              <button onclick="openQuickView('${p.id}')" class="rounded-full bg-white px-4 py-2.5 text-xs font-semibold text-charcoal hover:bg-cream transition">Quick View</button>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="text-xs text-terracotta">★ ${p.rating.toFixed(1)} <span class="text-beige">(${p.reviews})</span></div>
+            <h3 class="mt-1.5 text-lg font-medium text-white">${p.name}</h3>
+            <div class="mt-2 flex items-baseline gap-2.5">
+              <span class="text-base font-semibold text-cream">$${p.price.toLocaleString()}</span>
+              ${p.compareAt ? `<span class="text-xs text-brown line-through">$${p.compareAt.toLocaleString()}</span>` : ''}
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function filterProducts(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        const isMatch = btn.textContent.includes(cat) || (cat === 'Decor' && btn.textContent.includes('Lighting'));
+        btn.className = isMatch
+          ? 'filter-btn active-filter rounded-full px-4 py-2 text-xs font-medium bg-charcoal text-ivory transition'
+          : 'filter-btn rounded-full px-4 py-2 text-xs font-medium bg-cream text-charcoal hover:bg-beige transition';
+      });
+      renderBestSellers();
+    }
+
+    function renderBestSellers() {
+      const sort = document.getElementById('sort-select').value;
+      let list = activeCategory === 'All'
+        ? [...PRODUCTS]
+        : PRODUCTS.filter(p => p.category === activeCategory);
+
+      if (sort === 'price-asc') list.sort((a, b) => a.price - b.price);
+      if (sort === 'price-desc') list.sort((a, b) => b.price - a.price);
+      if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
+
+      document.getElementById('bestsellers-grid').innerHTML = list.map(p => {
+        const wished = wishlist.has(p.id);
+        return `
+          <article class="group flex flex-col overflow-hidden rounded-[14px] border border-softgrey bg-white transition hover:-translate-y-1 hover:shadow-lg">
+            <div class="relative aspect-square overflow-hidden bg-cream">
+              <img src="${p.image}" alt="${p.name}" onclick="openQuickView('${p.id}')" class="h-full w-full cursor-pointer object-cover transition-transform duration-700 group-hover:scale-105" />
+              ${p.compareAt ? `<span class="absolute top-3 left-3 rounded-full bg-terracotta px-2.5 py-1 text-[10px] font-semibold text-white">Save $${p.compareAt - p.price}</span>` : ''}
+              <button onclick="toggleWishlist('${p.id}')" aria-label="Toggle wishlist" class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-sm shadow transition hover:scale-110 ${wished ? 'text-terracotta' : 'text-charcoal'}">
+                ${wished ? '♥' : '♡'}
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-brown">
+                  <span>${p.category}</span>
+                  <span>★ ${p.rating}</span>
+                </div>
+                <h3 onclick="openQuickView('${p.id}')" class="mt-1 cursor-pointer text-sm font-medium text-charcoal group-hover:text-terracotta transition">${p.name}</h3>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <div>
+                  <span class="text-sm font-semibold">$${p.price.toLocaleString()}</span>
+                  ${p.compareAt ? `<span class="ml-1.5 text-xs text-brown line-through">$${p.compareAt.toLocaleString()}</span>` : ''}
+                </div>
+                <button onclick="addToCart('${p.id}')" class="rounded-full bg-cream px-3 py-1.5 text-[11px] font-semibold text-charcoal transition hover:bg-terracotta hover:text-white">
+                  + Bag
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderMarquee() {
+      const track = document.getElementById('marquee-track');
+      const cardHtml = PRODUCTS.map(p => `
+        <div onclick="openQuickView('${p.id}')" class="w-64 shrink-0 cursor-pointer overflow-hidden rounded-[16px] border border-softgrey bg-white shadow-sm transition hover:shadow-md">
+          <div class="h-48 overflow-hidden bg-cream">
+            <img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover" />
+          </div>
+          <div class="p-4">
+            <p class="text-[11px] uppercase tracking-wider text-brown">${p.category}</p>
+            <h3 class="mt-1 truncate text-sm font-medium text-charcoal">${p.name}</h3>
+            <p class="mt-1 text-sm font-semibold text-terracotta">$${p.price.toLocaleString()}</p>
+          </div>
+        </div>
+      `).join('');
+      // Duplicate twice for seamless zero-gap infinite loop
+      track.innerHTML = cardHtml + cardHtml;
+    }
+
+    function toggleWishlist(id) {
+      if (wishlist.has(id)) {
+        wishlist.delete(id);
+        showToast('Removed from Wishlist');
+      } else {
+        wishlist.add(id);
+        showToast('Saved to Wishlist ♥');
+      }
+      document.getElementById('wishlist-count').textContent = wishlist.size;
+      renderBestSellers();
+    }
+
+    function addToCart(id, qty = 1) {
+      const prod = PRODUCTS.find(p => p.id === id);
+      if (!prod) return;
+      const existing = cart.find(i => i.id === id);
+      if (existing) existing.qty += qty;
+      else cart.push({ id: prod.id, name: prod.name, price: prod.price, image: prod.image, color: prod.colors[0], qty });
+      saveCart();
+      renderCart();
+      showToast(`Added "${prod.name}" to bag`);
+      toggleCart(true);
+    }
+
+    function updateQty(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+      saveCart();
+      renderCart();
+    }
+
+    function saveCart() {
+      localStorage.setItem('is_preview_cart', JSON.stringify(cart));
+    }
+
+    function renderCart() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('cart-count').textContent = count;
+      const container = document.getElementById('cart-items');
+
+      if (cart.length === 0) {
+        container.innerHTML = `<div class="py-16 text-center text-sm text-brown">Your bag is currently empty.<br/><button onclick="toggleCart(false)" class="mt-4 rounded-full bg-charcoal px-6 py-2.5 text-xs text-ivory">Continue Shopping</button></div>`;
+      } else {
+        container.innerHTML = cart.map(item => `
+          <div class="flex gap-4 rounded-xl bg-white p-3 border border-softgrey">
+            <img src="${item.image}" alt="${item.name}" class="h-20 w-20 rounded-lg object-cover bg-cream" />
+            <div class="flex-1">
+              <h4 class="text-sm font-medium text-charcoal">${item.name}</h4>
+              <p class="text-[11px] text-brown">${item.color}</p>
+              <div class="mt-2 flex items-center justify-between">
+                <div class="inline-flex items-center rounded-full border border-beige px-2 py-0.5 text-xs">
+                  <button onclick="updateQty('${item.id}', -1)" class="px-1.5">−</button>
+                  <span class="px-2 font-medium">${item.qty}</span>
+                  <button onclick="updateQty('${item.id}', 1)" class="px-1.5">+</button>
+                </div>
+                <span class="text-sm font-semibold">$${(item.price * item.qty).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const discount = promoApplied ? Math.round(subtotal * 0.1) : 0;
+      const shipping = subtotal === 0 || subtotal >= 1000 ? 0 : 45;
+      const total = Math.max(0, subtotal - discount + shipping);
+
+      document.getElementById('cart-subtotal').textContent = `$${subtotal.toLocaleString()}`;
+      document.getElementById('cart-discount').textContent = `-$${discount.toLocaleString()}`;
+      document.getElementById('discount-row').classList.toggle('hidden', !promoApplied || subtotal === 0);
+      document.getElementById('cart-shipping').textContent = shipping === 0 ? 'Complimentary' : `$${shipping}`;
+      document.getElementById('cart-total').textContent = `$${total.toLocaleString()}`;
+    }
+
+    function applyPromo(e) {
+      e.preventDefault();
+      const val = document.getElementById('promo-input').value.trim().toUpperCase();
+      if (val === 'STUDIO10') {
+        promoApplied = true;
+        renderCart();
+        showToast('Promo code STUDIO10 applied (10% off)');
+      } else {
+        showToast('Try code STUDIO10 for 10% off');
+      }
+    }
+
+    function toggleCart(open) {
+      const overlay = document.getElementById('cart-overlay');
+      const drawer = document.getElementById('cart-drawer');
+      overlay.classList.toggle('hidden', !open);
+      drawer.classList.toggle('translate-x-full', !open);
+    }
+
+    function handleCheckoutPreview() {
+      if (cart.length === 0) return showToast('Add an item to your bag first.');
+      showToast('Checkout ready — connects to Paystack, Flutterwave & Stripe in production.');
+    }
+
+    function openQuickView(id) {
+      const p = PRODUCTS.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('quickview-content').innerHTML = `
+        <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-charcoal shadow">✕</button>
+        <div class="bg-cream h-72 md:h-auto"><img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover" /></div>
+        <div class="p-7 flex flex-col justify-between">
+          <div>
+            <span class="text-[11px] uppercase tracking-widest text-terracotta font-semibold">${p.category}</span>
+            <h3 class="mt-2 font-serif text-2xl font-medium">${p.name}</h3>
+            <p class="mt-2 text-lg font-semibold">$${p.price.toLocaleString()}</p>
+            <p class="mt-3 text-sm text-brown leading-relaxed">${p.desc}</p>
+            <p class="mt-4 text-xs text-charcoal"><span class="font-semibold">Dimensions:</span> ${p.dimensions}</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              ${p.colors.map(c => `<span class="rounded-full border border-beige px-3 py-1 text-xs">${c}</span>`).join('')}
+            </div>
+          </div>
+          <button onclick="addToCart('${p.id}'); closeQuickView();" class="mt-6 w-full rounded-full bg-charcoal py-3 text-sm font-medium text-ivory transition hover:bg-terracotta">
+            Add to Shopping Bag
+          </button>
+        </div>
+      `;
+      document.getElementById('quickview-modal').classList.remove('hidden');
+    }
+
+    function closeQuickView() {
+      document.getElementById('quickview-modal').classList.add('hidden');
+    }
+
+    function openSearch() {
+      document.getElementById('search-modal').classList.remove('hidden');
+      document.getElementById('search-input').focus();
+      handleSearch('');
+    }
+    function closeSearch() {
+      document.getElementById('search-modal').classList.add('hidden');
+    }
+    function handleSearch(q) {
+      const term = q.trim().toLowerCase();
+      const matches = PRODUCTS.filter(p => p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term)).slice(0, 5);
+      document.getElementById('search-results').innerHTML = matches.length
+        ? matches.map(p => `
+          <div onclick="closeSearch(); openQuickView('${p.id}')" class="flex items-center gap-4 py-3 cursor-pointer hover:bg-ivory px-2 rounded-lg">
+            <img src="${p.image}" class="h-12 w-12 rounded-lg object-cover" />
+            <div class="flex-1"><p class="text-sm font-medium">${p.name}</p><p class="text-xs text-brown">${p.category}</p></div>
+            <span class="text-sm font-semibold">$${p.price.toLocaleString()}</span>
+          </div>`).join('')
+        : '<p class="py-6 text-center text-xs text-brown">No matching pieces found. Try "Oak", "Sofa", or "Lamp".</p>';
+    }
+
+    function scrollTestimonials(dir) {
+      document.getElementById('testimonials-track').scrollBy({ left: dir * 360, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletter-email').value;
+      const fb = document.getElementById('newsletter-feedback');
+      fb.textContent = `Thank you — ${email} is subscribed to InteriorStudio Atelier updates.`;
+      fb.classList.remove('hidden');
+      e.target.reset();
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.remove('translate-y-6', 'opacity-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.add('translate-y-6', 'opacity-0'), 3000);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeSearch(); closeQuickView(); toggleCart(false); }
+    });
+
+    // Intersection observer for scroll reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    renderArrivals();
+    renderBestSellers();
+    renderMarquee();
+    renderCart();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
